@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Varsity games</title>
+<style>html,body{margin:0;background:transparent}</style>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+</head><body>
+<div id="hb-strip" aria-label="Varsity game schedule">
+  <button class="hb-arrow hb-prev" aria-label="Earlier games">&#8249;</button>
+  <div class="hb-track" tabindex="0"><div class="hb-msg">Loading schedule…</div></div>
+  <button class="hb-arrow hb-next" aria-label="Later games">&#8250;</button>
+</div>
+
+<style>
+#hb-strip{
+  --hb-red:#C8102E; --hb-ink:#23262B; --hb-muted:#6B7280; --hb-line:#E3E6EA; --hb-ice:#F7F9FB;
+  position:relative; display:flex; align-items:stretch; gap:0;
+  background:var(--hb-ice); border-top:4px solid var(--hb-red); border-bottom:1px solid var(--hb-line);
+  font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif; color:var(--hb-ink);
+  margin:0; box-sizing:border-box;
+}
+#hb-strip *{box-sizing:border-box}
+#hb-strip .hb-track{
+  flex:1; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  scrollbar-width:none;
+}
+#hb-strip .hb-track::-webkit-scrollbar{display:none}
+#hb-strip .hb-track:focus-visible{outline:2px solid var(--hb-red); outline-offset:-2px}
+#hb-strip .hb-arrow{
+  flex:0 0 36px; border:0; background:#fff; color:var(--hb-ink); font-size:30px; line-height:1;
+  cursor:pointer; border-right:1px solid var(--hb-line);
+}
+#hb-strip .hb-next{border-right:0; border-left:1px solid var(--hb-line)}
+#hb-strip .hb-arrow:hover{color:var(--hb-red)}
+#hb-strip .hb-arrow:focus-visible{outline:2px solid var(--hb-red); outline-offset:-2px}
+#hb-strip .hb-game{
+  flex:0 0 190px; scroll-snap-align:start; padding:10px 14px 12px; background:#fff;
+  border-right:1px solid var(--hb-line); text-decoration:none; color:inherit; display:block;
+  position:relative;
+}
+#hb-strip .hb-game:hover{background:#FCF4F5}
+#hb-strip .hb-game.hb-next-game::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--hb-red);
+}
+#hb-strip .hb-date{display:flex; justify-content:space-between; font-size:15px; font-weight:600; color:var(--hb-muted)}
+#hb-strip .hb-tag{color:var(--hb-red)}
+#hb-strip .hb-row{display:flex; align-items:center; gap:8px; margin-top:7px; font-size:20px; font-weight:700; line-height:1.1}
+#hb-strip .hb-badge{
+  flex:0 0 30px; height:30px; border-radius:50%; display:grid; place-items:center;
+  font-size:11px; font-weight:700; letter-spacing:.02em; background:var(--hb-ink); color:#fff;
+}
+#hb-strip .hb-badge.hb-us{background:var(--hb-red)}
+#hb-strip .hb-name{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+#hb-strip .hb-ha{font-size:14px; font-weight:600; color:var(--hb-muted); margin-right:2px}
+#hb-strip .hb-foot{margin-top:9px; font-size:15px; font-weight:500; color:var(--hb-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+#hb-strip .hb-time{font-weight:700; color:var(--hb-ink)}
+#hb-strip .hb-team{font-size:14px; font-weight:600; color:var(--hb-red); margin-left:2px}
+#hb-strip .hb-past{opacity:.55}
+#hb-strip .hb-cancel .hb-time{color:var(--hb-red); text-decoration:none}
+#hb-strip .hb-msg{padding:22px 16px; font-size:18px; color:var(--hb-muted)}
+@media (max-width:600px){ #hb-strip .hb-game{flex-basis:165px} #hb-strip .hb-arrow{flex-basis:28px} }
+@media (prefers-reduced-motion:reduce){ #hb-strip .hb-track{scroll-behavior:auto} }
+</style>
+
+<script>
+(function(){
+  /* ---------- settings you might change ---------- */
+  var HOME_RINK = "R.P. Lumber";      // games at a rink containing this text show as HOME
+  var US_NAME = "Highland", US_ABBR = "HHS";
+  var TZ = "America/Chicago";
+  // Optional: add ?team=varsity or ?team=jv to the page address to show one team only
+  var ONLY = (new URLSearchParams(location.search).get("team") || "").toLowerCase();
+  /* ----------------------------------------------- */
+
+  var root = document.getElementById("hb-strip");
+  var track = root.querySelector(".hb-track");
+
+  // games.ics is refreshed hourly by the GitHub Action in this repository
+  var SOURCES = ["games.ics?t=" + Date.now()];
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+
+  function abbr(name){
+    var n = name.replace(/[^A-Za-z\s]/g,"").trim();
+    if (/^[A-Z]{2,5}$/.test(n)) return n;
+    var w = n.split(/\s+/);
+    return (w.length > 1 ? w.map(function(x){return x[0];}).join("") : n.slice(0,3)).toUpperCase().slice(0,4);
+  }
+
+  // ---- minimal iCalendar reader ----
+  function unescapeIcs(v){ return v.replace(/\\n/gi,"\n").replace(/\\,/g,",").replace(/\\;/g,";").replace(/\\\\/g,"\\"); }
+  function parseIcsDate(v){
+    var m = v.match(/(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})?(Z)?)?/);
+    if (!m) return null;
+    if (m[7]) return new Date(Date.UTC(+m[1], m[2]-1, +m[3], +(m[4]||0), +(m[5]||0)));
+    return new Date(+m[1], m[2]-1, +m[3], +(m[4]||0), +(m[5]||0));
+  }
+  function parseDuration(v){
+    var m = (v||"").match(/P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?)?/);
+    if (!m) return 3600000;
+    return (((+m[1]||0)*24 + (+m[2]||0))*60 + (+m[3]||0))*60000 || 3600000;
+  }
+  function readIcs(text){
+    if (text.indexOf("BEGIN:VCALENDAR") === -1) throw new Error("not a calendar");
+    var lines = text.replace(/\r\n?/g,"\n").replace(/\n[ \t]/g,"").split("\n");
+    var events = [], cur = null;
+    lines.forEach(function(line){
+      line = line.replace(/\s+$/,"");
+      if (/^BEGIN:VEVENT$/i.test(line)) cur = {};
+      else if (/^END:VEVENT/i.test(line)){ if (cur) events.push(cur); cur = null; }
+      else if (cur){
+        var i = line.indexOf(":"); if (i < 0) return;
+        var key = line.slice(0,i).split(";")[0].toUpperCase();
+        cur[key] = line.slice(i+1);
+      }
+    });
+    return events;
+  }
+
+  function fmt(date, opts){ return new Intl.DateTimeFormat("en-US", Object.assign({timeZone:TZ}, opts)).format(date); }
+
+  function toGame(ev){
+    var text = unescapeIcs(ev.SUMMARY || "");
+    if (!/\bgame\b/i.test(text)) return null;
+    var start = parseIcsDate(ev.DTSTART || ""); if (!start) return null;
+    var end = ev.DTEND ? parseIcsDate(ev.DTEND) : new Date(start.getTime() + parseDuration(ev.DURATION));
+    var cancelled = /^cancel/i.test(text) || /CANCEL/i.test(ev.STATUS || "");
+    var m = text.match(/\b(vs\.?|at|@)\s+(.+?)\s*(\(|$)/i);
+    var opp = m ? m[2].trim() : text.replace(/^.*?:\s*/,"");
+    var loc = unescapeIcs(ev.LOCATION || "");
+    var rink = loc.split("\n")[0].trim();
+    var team = unescapeIcs(ev.CATEGORIES || "").split(",")[0].trim();
+    if (ONLY && team.toLowerCase() !== ONLY) return null;
+    return {
+      team: team,
+      opp: opp, oppAbbr: abbr(opp), rink: rink, cancelled: cancelled, start: start, end: end,
+      home: rink.toLowerCase().indexOf(HOME_RINK.toLowerCase()) !== -1,
+      day: fmt(start,{weekday:"short"}), date: fmt(start,{month:"short", day:"numeric"}),
+      time: fmt(start,{hour:"numeric", minute:"2-digit"}),
+      map: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(loc.replace(/\n/g, ", "))
+    };
+  }
+
+  function card(g, isNext, isPast){
+    var cls = "hb-game" + (isNext ? " hb-next-game" : "") + (isPast ? " hb-past" : "") + (g.cancelled ? " hb-cancel" : "");
+    var tag = g.cancelled ? "Canceled" : isNext ? "Next game" : g.home ? "Home" : "Away";
+    var status = g.cancelled ? "Canceled" : isPast ? "Played" : g.time;
+    return '<a class="' + cls + '" href="' + g.map + '" target="_blank" rel="noopener" title="' + esc(g.rink) + '">'
+      + '<div class="hb-date"><span>' + g.day + ' ' + g.date + '</span><span class="hb-tag">' + tag + '</span></div>'
+      + '<div class="hb-row"><span class="hb-badge">' + esc(g.oppAbbr) + '</span>'
+      + '<span class="hb-name"><span class="hb-ha">' + (g.home ? "vs" : "@") + '</span>' + esc(g.opp) + '</span></div>'
+      + '<div class="hb-row"><span class="hb-badge hb-us">' + US_ABBR + '</span><span class="hb-name">' + US_NAME + (g.team ? ' <span class="hb-team">' + esc(g.team) + '</span>' : '') + '</span></div>'
+      + '<div class="hb-foot"><span class="hb-time">' + status + '</span> &nbsp;' + esc(g.rink) + '</div>'
+      + '</a>';
+  }
+
+  function render(icsText){
+    var all = readIcs(icsText);
+    var games = all.map(toGame).filter(Boolean).sort(function(a,b){ return a.start - b.start; });
+    if (!games.length){ track.innerHTML = '<div class="hb-msg">No games scheduled yet.</div>'; return; }
+    var now = new Date(), nextIdx = -1, seen = {};
+    var isNext = games.map(function(g,i){
+      if (g.cancelled || g.end < now || seen[g.team]) return false;
+      seen[g.team] = true; if (nextIdx < 0) nextIdx = i; return true;
+    });
+    track.innerHTML = games.map(function(g,i){ return card(g, isNext[i], g.end < now); }).join("");
+    var target = track.children[nextIdx >= 0 ? Math.max(nextIdx - 1, 0) : games.length - 1];
+    if (target){ track.style.scrollBehavior = "auto"; track.scrollLeft = target.offsetLeft - track.offsetLeft; track.style.scrollBehavior = ""; }
+  }
+
+  function fetchWithTimeout(url, ms){
+    var ctl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function(){ if (ctl) ctl.abort(); }, ms);
+    return fetch(url, ctl ? {signal: ctl.signal, cache: "no-store"} : {cache: "no-store"})
+      .finally(function(){ clearTimeout(t); });
+  }
+
+  var errors = [];
+  function tryNext(i){
+    if (i >= SOURCES.length){
+      track.innerHTML = '<div class="hb-msg">Schedule is unavailable right now. Please check back soon.</div>';
+      return;
+    }
+    fetchWithTimeout(SOURCES[i], 15000).then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+      .then(function(t){ render(t); })
+      .catch(function(e){ errors.push((i+1) + ": " + (e && e.message || e)); tryNext(i+1); });
+  }
+  tryNext(0);
+
+  function step(dir){ track.scrollBy({left: dir * track.clientWidth * 0.8}); }
+  root.querySelector(".hb-prev").addEventListener("click", function(){ step(-1); });
+  root.querySelector(".hb-next").addEventListener("click", function(){ step(1); });
+})();
+</script>
+</body></html>
