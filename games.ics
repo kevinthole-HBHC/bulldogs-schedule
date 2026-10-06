@@ -339,4 +339,251 @@ LAST-MODIFIED:20261002T183814Z
 DURATION:PT1H
 CATEGORIES:Varsity
 END:VEVENT
+BEGIN:VEVENT
+UID:event-1915614@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs EAWR (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261025T003000Z
+DESCRIPTION:Game: JV 26-27 vs EAWR\nLocation: East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915614%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.8808821;-90.1198659
+LOCATION:East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915616@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Belleville (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261109T004500Z
+DESCRIPTION:Game: JV 26-27 vs Belleville\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915616%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915619@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Bethalto (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261115T013000Z
+DESCRIPTION:Game: JV 26-27 vs Bethalto\nLocation: East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915619%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.8808821;-90.1198659
+LOCATION:East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915621@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs EAWR (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261122T014500Z
+DESCRIPTION:Game: JV 26-27 vs EAWR\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915621%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915623@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Alton (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261123T013000Z
+DESCRIPTION:Game: JV 26-27 vs Alton\nLocation: East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915623%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.8808821;-90.1198659
+LOCATION:East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915625@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Mascoutah (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261129T233000Z
+DESCRIPTION:Game: JV 26-27 vs Mascoutah\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915625%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915626@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Alton (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261206T031500Z
+DESCRIPTION:Game: JV 26-27 vs Alton\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915626%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915628@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Edwardsville North (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261206T233000Z
+DESCRIPTION:Game: JV 26-27 vs Edwardsville North\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915628%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915629@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs FBWTL (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261213T014500Z
+DESCRIPTION:Game: JV 26-27 vs FBWTL\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915629%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915630@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Edwardsville South (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261213T233000Z
+DESCRIPTION:Game: JV 26-27 vs Edwardsville South\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915630%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915631@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Bethalto (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261220T030000Z
+DESCRIPTION:Game: JV 26-27 vs Bethalto\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915631%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915633@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Edwardsville North (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261221T004500Z
+DESCRIPTION:Game: JV 26-27 vs Edwardsville North\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915633%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915640@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Granite City (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20261227T221000Z
+DESCRIPTION:Game: JV 26-27 vs Granite City\nLocation: Granite City Ice Rink\n2900 Benton St\, Granite City\, IL 62040\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915640%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7174269;-90.1318785
+LOCATION:Granite City Ice Rink\n2900 Benton St\, Granite City\, IL 62040\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915641@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Columbia (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20270103T024500Z
+DESCRIPTION:Game: JV 26-27 vs Columbia\nLocation: McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915641%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.5847114;-89.8785229
+LOCATION:McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915642@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Triad (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20270110T014500Z
+DESCRIPTION:Game: JV 26-27 vs Triad\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915642%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915643@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs O'Fallon (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20270111T004500Z
+DESCRIPTION:Game: JV 26-27 vs O'Fallon\nLocation: McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915643%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.5847114;-89.8785229
+LOCATION:McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915644@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Granite City (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20270124T031500Z
+DESCRIPTION:Game: JV 26-27 vs Granite City\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915644%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183246Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1974378@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Columbia (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20270124T221000Z
+DESCRIPTION:Game: JV 26-27 vs Columbia\nLocation: Granite City Ice Rink\n2900 Benton St\, Granite City\, IL 62040\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1974378%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7174269;-90.1318785
+LOCATION:Granite City Ice Rink\n2900 Benton St\, Granite City\, IL 62040\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T185916Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915654@teamsnapone.com
+SUMMARY:Game: JV 26-27 vs Collinsville (Arrive 60 minutes early)
+DTSTAMP:20261006T003534Z
+DTSTART:20270131T030000Z
+DESCRIPTION:Game: JV 26-27 vs Collinsville\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915654%26team_id%3D019ef23d-f17f-7047-af05-2cca744ee202
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20261002T183247Z
+DURATION:PT1H
+CATEGORIES:JV
+END:VEVENT
 END:VCALENDAR
