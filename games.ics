@@ -1,3 +1,342 @@
 BEGIN:VCALENDAR
 VERSION:2.0
+PRODID:-//Highland Bulldogs//Games//EN
+BEGIN:VEVENT
+UID:event-1915655@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Mascoutah (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261103T004500Z
+DESCRIPTION:Game: Varsity 26-27 vs Mascoutah\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915655%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T064501Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915657@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Vianney (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261106T004500Z
+DESCRIPTION:Game: Varsity 26-27 vs Vianney\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915657%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T064632Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915666@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Collinsville (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261110T021500Z
+DESCRIPTION:Game: Varsity 26-27 vs Collinsville\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915666%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T064729Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1915675@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs EAWR (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261111T013000Z
+DESCRIPTION:Game: Varsity 26-27 vs EAWR\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1915675%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T064839Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917536@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Granite City (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261113T010000Z
+DESCRIPTION:Game: Varsity 26-27 vs Granite City\nLocation: Granite City Ice Rink\n2900 Benton St\, Granite City\, IL 62040\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917536%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7174269;-90.1318785
+LOCATION:Granite City Ice Rink\n2900 Benton St\, Granite City\, IL 62040\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T130147Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917544@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs FBWTL (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261117T021500Z
+DESCRIPTION:Game: Varsity 26-27 vs FBWTL\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917544%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T130303Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917551@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs O'Fallon (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261124T004500Z
+DESCRIPTION:Game: Varsity 26-27 vs O'Fallon\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917551%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T130401Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917561@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Belleville (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261202T030000Z
+DESCRIPTION:Game: Varsity 26-27 vs Belleville\nLocation: McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917561%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.5847114;-89.8785229
+LOCATION:McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T130517Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917573@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Columbia (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261204T013000Z
+DESCRIPTION:Game: Varsity 26-27 vs Columbia\nLocation: McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917573%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.5847114;-89.8785229
+LOCATION:McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T130817Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917575@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Triad (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261208T030000Z
+DESCRIPTION:Game: Varsity 26-27 vs Triad\nLocation: Granite City Ice Rink\n2900 Benton St\, Granite City\, IL 62040\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917575%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7174269;-90.1318785
+LOCATION:Granite City Ice Rink\n2900 Benton St\, Granite City\, IL 62040\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T130906Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917731@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Bethalto (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261211T004500Z
+DESCRIPTION:Game: Varsity 26-27 vs Bethalto\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917731%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T131347Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917777@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Edwardsville (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261215T021500Z
+DESCRIPTION:Game: Varsity 26-27 vs Edwardsville\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917777%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T131640Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917836@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Alton (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261218T021500Z
+DESCRIPTION:Game: Varsity 26-27 vs Alton\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917836%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T131817Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917904@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Collinsville (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20261222T021500Z
+DESCRIPTION:Game: Varsity 26-27 vs Collinsville\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917904%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T132048Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917938@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs EAWR (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270105T013000Z
+DESCRIPTION:Game: Varsity 26-27 vs EAWR\nLocation: East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917938%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.8808821;-90.1198659
+LOCATION:East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T132714Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1917944@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Granite city (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270108T021500Z
+DESCRIPTION:Game: Varsity 26-27 vs Granite city\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1917944%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T132844Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1919911@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Alton (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270113T030000Z
+DESCRIPTION:Game: Varsity 26-27 vs Alton\nLocation: East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1919911%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.8808821;-90.1198659
+LOCATION:East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T150031Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1932707@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Columbia (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270115T004500Z
+DESCRIPTION:Game: Varsity 26-27 vs Columbia\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1932707%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T231803Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1932727@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Triad (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270122T004500Z
+DESCRIPTION:Game: Varsity 26-27 vs Triad\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1932727%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T232327Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1932736@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Belleville (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270126T004500Z
+DESCRIPTION:Game: Varsity 26-27 vs Belleville\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1932736%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T232259Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1933141@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Mascoutah (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270127T030000Z
+DESCRIPTION:Game: Varsity 26-27 vs Mascoutah\nLocation: McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1933141%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.5847114;-89.8785229
+LOCATION:McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T235258Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1933147@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs FBWTL (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270129T013000Z
+DESCRIPTION:Game: Varsity 26-27 vs FBWTL\nLocation: McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1933147%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.5847114;-89.8785229
+LOCATION:McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T235543Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1933152@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Bethalto (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270202T030000Z
+DESCRIPTION:Game: Varsity 26-27 vs Bethalto\nLocation: East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1933152%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.8808821;-90.1198659
+LOCATION:East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260917T235700Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1933607@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs O'Fallon (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270203T013000Z
+DESCRIPTION:Game: Varsity 26-27 vs O'Fallon\nLocation: McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1933607%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.5847114;-89.8785229
+LOCATION:McKendree Metro Rec Plex\n205 Rec Plex Dr\, O'Fallon\, IL 62269\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260918T004409Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1933188@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Edwardsville (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270205T021500Z
+DESCRIPTION:Game: Varsity 26-27 vs Edwardsville\nLocation: R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1933188%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.7905931;-89.9721232
+LOCATION:R.P. Lumber Center\n6289 Tiger Dr\, Edwardsville\, IL 62025\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260918T000028Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
+BEGIN:VEVENT
+UID:event-1933193@teamsnapone.com
+SUMMARY:Game: Varsity 26-27 vs Vianney (Arrive 60 minutes early)
+DTSTAMP:20260929T193113Z
+DTSTART:20270209T030000Z
+DESCRIPTION:Game: Varsity 26-27 vs Vianney\nLocation: East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA\nDuration: 1 hour\nArrival: 60 minutes early\nLink: https://link.teamsnapone.com/j8yu/lti6qv3a?deep_link_value=tsone%3A%2F%2Fevent%3Fevent_id%3D1933193%26team_id%3D019ef23d-f181-7929-989f-63d85724240c
+GEO:38.8808821;-90.1198659
+LOCATION:East Alton Ice Arena\n631 Lewis and Clark Blvd\, East Alton\, IL 62024\, USA
+STATUS:CONFIRMED
+LAST-MODIFIED:20260918T000142Z
+DURATION:PT1H
+CATEGORIES:Varsity
+END:VEVENT
 END:VCALENDAR
