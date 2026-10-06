@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Varsity games</title>
-<style>html,body{margin:0;background:transparent}</style>
+<style>html,body{margin:0;background:transparent;overflow:hidden}</style>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
 </head><body>
 <div id="hb-strip" aria-label="Varsity game schedule">
@@ -59,6 +59,26 @@
 #hb-strip .hb-msg{padding:22px 16px; font-size:18px; color:var(--hb-muted)}
 @media (max-width:600px){ #hb-strip .hb-game{flex-basis:165px} #hb-strip .hb-arrow{flex-basis:28px} }
 @media (prefers-reduced-motion:reduce){ #hb-strip .hb-track{scroll-behavior:auto} }
+/* ---- compact top-bar style: add ?compact=1 to the page address ---- */
+#hb-strip.hb-compact{
+  --hb-ink:#F2F3F5; --hb-muted:#A0A6AE; --hb-line:#2C3036; --hb-ice:#16181C; --hb-red:#E21B35;
+  border-top:0; border-bottom:3px solid var(--hb-red); background:var(--hb-ice);
+}
+#hb-strip.hb-compact .hb-arrow{background:var(--hb-ice); color:var(--hb-muted); font-size:24px; flex-basis:28px; border-color:var(--hb-line)}
+#hb-strip.hb-compact .hb-arrow:hover{color:#fff}
+#hb-strip.hb-compact .hb-game{flex-basis:168px; background:var(--hb-ice); padding:7px 12px 8px; border-color:var(--hb-line)}
+#hb-strip.hb-compact .hb-game:hover{background:#20242A}
+#hb-strip.hb-compact .hb-game.hb-next-game::before{height:3px}
+#hb-strip.hb-compact .hb-date{font-size:13px; letter-spacing:.02em; text-transform:uppercase}
+#hb-strip.hb-compact .hb-tag{color:var(--hb-muted)}
+#hb-strip.hb-compact .hb-next-game .hb-tag{color:var(--hb-red)}
+#hb-strip.hb-compact .hb-row{margin-top:5px; font-size:17px; gap:7px}
+#hb-strip.hb-compact .hb-badge{flex:0 0 24px; height:24px; font-size:9px; background:#3A3F46}
+#hb-strip.hb-compact .hb-ha{font-size:13px}
+#hb-strip.hb-compact .hb-msg{padding:14px 16px; font-size:15px; color:var(--hb-muted)}
+#hb-strip .hb-badge.hb-long{font-size:9px; letter-spacing:0}
+#hb-strip.hb-compact .hb-badge.hb-long{font-size:7.5px}
+@media (max-width:600px){ #hb-strip.hb-compact .hb-game{flex-basis:150px} }
 </style>
 
 <script>
@@ -68,11 +88,14 @@
   var US_NAME = "Highland", US_ABBR = "HHS";
   var TZ = "America/Chicago";
   // Optional: add ?team=varsity or ?team=jv to the page address to show one team only
-  var ONLY = (new URLSearchParams(location.search).get("team") || "").toLowerCase();
+  var PARAMS = new URLSearchParams(location.search);
+  var ONLY = (PARAMS.get("team") || "").toLowerCase();
+  var COMPACT = PARAMS.get("compact") === "1";
   /* ----------------------------------------------- */
 
   var root = document.getElementById("hb-strip");
   var track = root.querySelector(".hb-track");
+  if (COMPACT) root.className += " hb-compact";
 
   // games.ics is refreshed hourly by the GitHub Action in this repository
   var SOURCES = ["games.ics?t=" + Date.now()];
@@ -141,15 +164,26 @@
     };
   }
 
+  function badge(text, extra){
+    return '<span class="hb-badge' + (text.length > 3 ? ' hb-long' : '') + (extra || '') + '">' + esc(text) + '</span>';
+  }
+
   function card(g, isNext, isPast){
     var cls = "hb-game" + (isNext ? " hb-next-game" : "") + (isPast ? " hb-past" : "") + (g.cancelled ? " hb-cancel" : "");
-    var tag = g.cancelled ? "Canceled" : isNext ? "Next game" : g.home ? "Home" : "Away";
     var status = g.cancelled ? "Canceled" : isPast ? "Played" : g.time;
-    return '<a class="' + cls + '" href="' + g.map + '" target="_blank" rel="noopener" title="' + esc(g.rink) + '">'
+    var open = '<a class="' + cls + '" href="' + g.map + '" target="_blank" rel="noopener" title="' + esc(g.rink) + '">';
+    if (COMPACT){
+      var tagC = g.cancelled ? "Canceled" : isNext ? "Next" : (g.team || (g.home ? "Home" : "Away"));
+      return open
+        + '<div class="hb-date"><span>' + g.day + ' ' + g.date + ' &middot; <span class="hb-time">' + status + '</span></span><span class="hb-tag">' + esc(tagC) + '</span></div>'
+        + '<div class="hb-row">' + badge(g.oppAbbr) + '<span class="hb-name"><span class="hb-ha">' + (g.home ? "vs" : "@") + '</span>' + esc(g.opp) + '</span></div>'
+        + '</a>';
+    }
+    var tag = g.cancelled ? "Canceled" : isNext ? "Next game" : g.home ? "Home" : "Away";
+    return open
       + '<div class="hb-date"><span>' + g.day + ' ' + g.date + '</span><span class="hb-tag">' + tag + '</span></div>'
-      + '<div class="hb-row"><span class="hb-badge">' + esc(g.oppAbbr) + '</span>'
-      + '<span class="hb-name"><span class="hb-ha">' + (g.home ? "vs" : "@") + '</span>' + esc(g.opp) + '</span></div>'
-      + '<div class="hb-row"><span class="hb-badge hb-us">' + US_ABBR + '</span><span class="hb-name">' + US_NAME + (g.team ? ' <span class="hb-team">' + esc(g.team) + '</span>' : '') + '</span></div>'
+      + '<div class="hb-row">' + badge(g.oppAbbr) + '<span class="hb-name"><span class="hb-ha">' + (g.home ? "vs" : "@") + '</span>' + esc(g.opp) + '</span></div>'
+      + '<div class="hb-row">' + badge(US_ABBR, ' hb-us') + '<span class="hb-name">' + US_NAME + (g.team ? ' <span class="hb-team">' + esc(g.team) + '</span>' : '') + '</span></div>'
       + '<div class="hb-foot"><span class="hb-time">' + status + '</span> &nbsp;' + esc(g.rink) + '</div>'
       + '</a>';
   }
