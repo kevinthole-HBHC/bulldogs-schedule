@@ -42,6 +42,8 @@
   .chip .o{font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:17px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .chip .o small{font-family:Barlow,sans-serif; font-weight:500; font-size:12px; color:var(--muted); margin-right:3px}
   .chip.past{opacity:.55}
+  .chip .t .res{color:var(--ink); font-weight:700}
+  .chip .t .res.W{color:#157A3B} .chip .t .res.L{color:var(--red)}
   .chip.cancel .o{text-decoration:line-through}
   .list{display:none}
   .empty{background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:30px; text-align:center; color:var(--muted)}
@@ -110,9 +112,11 @@
 
   function chip(g, i){
     var now = new Date();
-    var cls = "chip" + (g.home ? " home" : "") + (g.end < now ? " past" : "") + (g.cancelled ? " cancel" : "");
+    var scored = g.result != null;
+    var cls = "chip" + (g.home ? " home" : "") + (g.end < now && !scored ? " past" : "") + (g.cancelled ? " cancel" : "");
+    var when = g.cancelled ? "Canceled" : scored ? '<span class="res ' + g.result + '">' + g.result + ' ' + g.us + '-' + g.them + (g.note ? ' ' + esc(g.note) : '') + '</span>' : g.time;
     return '<button class="' + cls + '" data-i="' + i + '">'
-      + '<div class="t"><span>' + (g.cancelled ? "Canceled" : g.time) + '</span><b>' + esc(g.team) + '</b></div>'
+      + '<div class="t"><span>' + when + '</span><b>' + esc(g.team) + '</b></div>'
       + '<div class="o"><small>' + (g.home ? "vs" : "@") + '</small>' + esc(g.opp) + '</div></button>';
   }
 
@@ -147,6 +151,8 @@
     dlg.innerHTML = '<div class="dlg-head"><div class="d">' + esc(g.longDate) + ' &middot; ' + (g.cancelled ? 'Canceled' : esc(g.time)) + '</div>'
       + '<div class="m">' + esc(away) + ' @ ' + esc(home) + '</div></div>'
       + '<div class="dlg-body">'
+      + (g.result != null ? '<div><div class="k">Final' + (g.note ? ' (' + esc(g.note) + ')' : '') + '</div><b style="font-size:20px">'
+          + (g.result === "W" ? "Win" : g.result === "L" ? "Loss" : "Tie") + ' ' + g.us + '-' + g.them + '</b></div>' : '')
       + '<div><div class="k">Team</div>' + esc(C.US_NAME + " " + g.team) + ' &middot; ' + (g.home ? "Home" : "Away") + '</div>'
       + '<div><div class="k">Rink</div>' + esc(g.rink) + (g.address ? '<br>' + esc(g.address) : '') + '</div>'
       + (g.arrive ? '<div><div class="k">Arrival</div>' + esc(g.arrive.charAt(0).toUpperCase() + g.arrive.slice(1)) + '</div>' : '')

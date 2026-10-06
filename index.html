@@ -39,6 +39,10 @@
   .hb-name{overflow:hidden; text-overflow:ellipsis}
   .hb-row.us .hb-name{color:#fff}
   .hb-row .side{margin-left:auto; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.04em}
+  .hb-row .score{margin-left:auto; font-size:20px; font-weight:700; color:var(--muted); min-width:18px; text-align:right}
+  .hb-row.win .score,.hb-row.win .hb-name{color:#fff}
+  .hb-row.lose .hb-name{color:var(--muted)}
+  .hb-final .hb-pill{background:transparent; color:var(--ink); padding:0}
   .hb-rink{margin-top:6px; font-size:13px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center}
   .hb-past{opacity:.5}
   .hb-cancel .hb-pill{background:transparent; color:var(--red); padding:0}
@@ -80,13 +84,16 @@
     return '<span class="hb-badge' + (us ? ' us' : '') + (text.length > 3 ? ' long' : '') + '">' + esc(text) + '</span>';
   }
   function row(isUs, g){
-    return isUs
-      ? '<div class="hb-row us">' + badge(C.US_ABBR, true) + '<span class="hb-name">' + esc(C.US_NAME) + '</span><span class="side">' + (g.home ? 'HOME' : 'AWAY') + '</span></div>'
-      : '<div class="hb-row">' + badge(g.oppAbbr) + '<span class="hb-name">' + esc(g.opp) + '</span></div>';
+    var scored = g.result != null, mine = isUs ? g.us : g.them, theirs = isUs ? g.them : g.us;
+    var cls = "hb-row" + (isUs ? " us" : "") + (scored ? (mine > theirs ? " win" : mine < theirs ? " lose" : "") : "");
+    var right = scored ? '<span class="score">' + mine + '</span>' : (isUs ? '<span class="side">' + (g.home ? 'HOME' : 'AWAY') + '</span>' : '');
+    var name = isUs ? C.US_NAME : g.opp;
+    return '<div class="' + cls + '">' + badge(isUs ? C.US_ABBR : g.oppAbbr, isUs) + '<span class="hb-name">' + esc(name) + '</span>' + right + '</div>';
   }
   function item(g, isNext, isPast){
-    var status = g.cancelled ? "Canceled" : isPast ? "Played" : g.time;
-    var cls = "hb-item" + (isNext ? " hb-next" : "") + (isPast ? " hb-past" : "") + (g.cancelled ? " hb-cancel" : "");
+    var scored = g.result != null;
+    var status = g.cancelled ? "Canceled" : scored ? "Final" + (g.note ? " / " + g.note : "") : isPast ? "Played" : g.time;
+    var cls = "hb-item" + (isNext ? " hb-next" : "") + (isPast && !scored ? " hb-past" : "") + (scored ? " hb-final" : "") + (g.cancelled ? " hb-cancel" : "");
     // away team on top, home team underneath
     var rows = g.home ? row(false, g) + row(true, g) : row(true, g) + row(false, g);
     return '<div class="' + cls + '">'

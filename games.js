@@ -76,14 +76,38 @@
     };
   }
 
+  // scores.csv: one line per finished game ->  date,team,highland,opponent[,note]
+  // e.g.  2026-10-24,JV,3,2      or  2026-11-02,Varsity,4,3,OT
+  function readScores(text){
+    var out = {};
+    text.split(/\r?\n/).forEach(function(line){
+      line = line.trim();
+      if (!line || line.charAt(0) === "#" || /^date\s*,/i.test(line)) return;
+      var c = line.split(",").map(function(x){ return x.trim(); });
+      if (c.length < 4 || !/^\d{4}-\d{2}-\d{2}$/.test(c[0]) || isNaN(+c[2]) || isNaN(+c[3])) return;
+      out[c[0] + "|" + c[1].toLowerCase()] = { us: +c[2], them: +c[3], note: (c[4] || "").toUpperCase() };
+    });
+    return out;
+  }
+
   function loadGames(){
     var ctl = window.AbortController ? new AbortController() : null;
     var t = setTimeout(function(){ if (ctl) ctl.abort(); }, 15000);
-    return fetch("games.ics?t=" + Date.now(), ctl ? {signal: ctl.signal, cache: "no-store"} : {cache: "no-store"})
-      .then(function(r){ clearTimeout(t); if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
-      .then(function(text){
-        return readIcs(text).map(toGame).filter(Boolean).sort(function(a,b){ return a.start - b.start; });
-      });
+    var gamesReq = fetch("games.ics?t=" + Date.now(), ctl ? {signal: ctl.signal, cache: "no-store"} : {cache: "no-store"})
+      .then(function(r){ clearTimeout(t); if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); });
+    var scoresReq = fetch("scores.csv?t=" + Date.now(), {cache: "no-store"})
+      .then(function(r){ return r.ok ? r.text() : ""; }).catch(function(){ return ""; });
+    return Promise.all([gamesReq, scoresReq]).then(function(res){
+      var scores = readScores(res[1]);
+      return readIcs(res[0]).map(toGame).filter(Boolean).map(function(g){
+        var sc = scores[g.key + "|" + g.team.toLowerCase()];
+        if (sc){
+          g.us = sc.us; g.them = sc.them; g.note = sc.note;
+          g.result = sc.us > sc.them ? "W" : sc.us < sc.them ? "L" : "T";
+        }
+        return g;
+      }).sort(function(a,b){ return a.start - b.start; });
+    });
   }
 
   window.HB = { CONFIG: CONFIG, esc: esc, loadGames: loadGames, dayKey: dayKey, fmt: fmt };
