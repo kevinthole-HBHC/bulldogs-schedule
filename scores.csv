@@ -2,3 +2,4 @@
 # date (YYYY-MM-DD), team (Varsity or JV), Highland score, opponent score, optional note (OT or SO)
 # Example:  2026-10-24,JV,3,2
 date,team,highland,opponent,note
+2026-10-24,JV,3,2
