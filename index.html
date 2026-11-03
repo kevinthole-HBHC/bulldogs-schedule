@@ -45,6 +45,9 @@
   .hb-final .hb-pill{background:transparent; color:var(--ink); padding:0}
   .hb-rink{margin-top:6px; font-size:13px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center}
   .hb-past{opacity:.5}
+  .hb-watch{color:var(--ink); font-weight:600}
+  .hb-watch svg{width:11px; height:11px; vertical-align:-1px; margin-right:4px; fill:currentColor}
+  .hb-game:hover .hb-watch{color:#fff; text-decoration:underline}
   .hb-cancel .hb-pill{background:transparent; color:var(--red); padding:0}
   .hb-cal{flex:0 0 64px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
     color:var(--ink); text-decoration:none; border-left:1px solid var(--line); font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase}
@@ -93,15 +96,17 @@
   function item(g, isNext, isPast){
     var scored = g.result != null;
     var status = g.cancelled ? "Canceled" : scored ? "Final" + (g.note ? " / " + g.note : "") : isPast ? "Played" : g.time;
-    var cls = "hb-item" + (isNext ? " hb-next" : "") + (isPast && !scored ? " hb-past" : "") + (scored ? " hb-final" : "") + (g.cancelled ? " hb-cancel" : "");
+    var cls = "hb-item" + (isNext ? " hb-next" : "") + (isPast && !scored && !g.video ? " hb-past" : "") + (scored ? " hb-final" : "") + (g.cancelled ? " hb-cancel" : "");
     // away team on top, home team underneath
     var rows = g.home ? row(false, g) + row(true, g) : row(true, g) + row(false, g);
     return '<div class="' + cls + '">'
       + '<div class="hb-date"><span class="wd">' + g.weekday + '</span><span class="mo">' + g.month + '</span><span class="dy">' + g.day + '</span></div>'
-      + '<a class="hb-game" href="' + g.map + '" target="_blank" rel="noopener" title="' + esc(g.rink + (g.address ? ", " + g.address : "")) + '">'
+      + '<a class="hb-game" href="' + esc(g.video || g.map) + '" target="_blank" rel="noopener" title="' + (g.video ? 'Watch the game video' : esc(g.rink + (g.address ? ", " + g.address : ""))) + '">'
       +   '<div class="hb-top"><span class="hb-pill">' + (isNext && !g.cancelled ? 'Next · ' : '') + status + '</span><span class="hb-team">' + esc(g.team) + '</span></div>'
       +   rows
-      +   '<div class="hb-rink">' + esc(g.rink) + '</div>'
+      +   (g.video
+            ? '<div class="hb-rink hb-watch"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>Watch the game</div>'
+            : '<div class="hb-rink">' + esc(g.rink) + '</div>')
       + '</a></div>';
   }
 

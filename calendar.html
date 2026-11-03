@@ -42,6 +42,9 @@
   .chip .o{font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:17px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .chip .o small{font-family:Barlow,sans-serif; font-weight:500; font-size:12px; color:var(--muted); margin-right:3px}
   .chip.past{opacity:.55}
+  .chip .t{gap:6px}
+  .chip .t > span:first-child{white-space:nowrap}
+  .chip .vid{display:inline-block; width:0; height:0; border-left:7px solid currentColor; border-top:4px solid transparent; border-bottom:4px solid transparent; margin-left:6px; vertical-align:0; color:var(--ink)}
   .chip .t .res{color:var(--ink); font-weight:700}
   .chip .t .res.W{color:#157A3B} .chip .t .res.L{color:var(--red)}
   .chip.cancel .o{text-decoration:line-through}
@@ -57,7 +60,19 @@
   .dlg-body .k{color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em; font-weight:600}
   .dlg-actions{display:flex; gap:10px; margin-top:6px}
   .btn{flex:1; text-align:center; padding:10px; border-radius:6px; font-weight:600; text-decoration:none; border:1px solid var(--line); background:var(--paper); color:var(--ink); cursor:pointer; font:600 15px Barlow,sans-serif}
+  .btn{display:flex; align-items:center; justify-content:center; white-space:nowrap}
   .btn.primary{background:var(--red); border-color:var(--red); color:#fff}
+  /* embed mode (?embed=1): used inside a page on the club website */
+  body.embed{background:transparent}
+  body.embed header{background:transparent; color:var(--ink); border-bottom:0}
+  body.embed header .wrap{min-height:0; padding-top:4px; padding-bottom:0; justify-content:flex-end}
+  body.embed h1{display:none}
+  body.embed .seg{border-color:var(--line); background:var(--paper)}
+  body.embed .seg button{color:var(--muted)}
+  body.embed .seg button[aria-pressed="true"]{color:#fff}
+  body.embed main.wrap{padding-top:12px; padding-bottom:12px}
+  body.embed footer{padding-bottom:8px}
+  body.embed dialog{position:absolute; margin:0 auto; left:0; right:0}
   @media (max-width:760px){
     .grid,.dows{display:none} .list{display:grid; gap:8px}
     .day{background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:10px 12px; display:grid; grid-template-columns:56px 1fr; gap:10px; align-items:start}
@@ -100,6 +115,15 @@
   var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
   var params = new URLSearchParams(location.search);
+  var EMBED = params.get("embed") === "1";
+  if (EMBED) document.body.className += " embed";
+  function reportHeight(){
+    if (!EMBED || window.parent === window) return;
+    var h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    window.parent.postMessage({ hbCalendarHeight: h }, "*");
+  }
+  window.addEventListener("resize", reportHeight);
+  window.addEventListener("load", reportHeight);
   var state = { team: (params.get("team") || "").toLowerCase(), y: 0, m: 0, games: [], min: null, max: null };
   var gridEl = document.getElementById("grid"), listEl = document.getElementById("list"), dlg = document.getElementById("dlg");
   document.querySelector(".dows").innerHTML = DOW.map(function(d){ return '<div class="dow">' + d + '</div>'; }).join("");
@@ -113,10 +137,10 @@
   function chip(g, i){
     var now = new Date();
     var scored = g.result != null;
-    var cls = "chip" + (g.home ? " home" : "") + (g.end < now && !scored ? " past" : "") + (g.cancelled ? " cancel" : "");
+    var cls = "chip" + (g.home ? " home" : "") + (g.end < now && !scored && !g.video ? " past" : "") + (g.cancelled ? " cancel" : "");
     var when = g.cancelled ? "Canceled" : scored ? '<span class="res ' + g.result + '">' + g.result + ' ' + g.us + '-' + g.them + (g.note ? ' ' + esc(g.note) : '') + '</span>' : g.time;
     return '<button class="' + cls + '" data-i="' + i + '">'
-      + '<div class="t"><span>' + when + '</span><b>' + esc(g.team) + '</b></div>'
+      + '<div class="t"><span>' + when + (g.video ? '<span class="vid" title="Game video"></span>' : '') + '</span><b>' + esc(g.team) + '</b></div>'
       + '<div class="o"><small>' + (g.home ? "vs" : "@") + '</small>' + esc(g.opp) + '</div></button>';
   }
 
@@ -144,9 +168,10 @@
     while (cells.length % 7) cells.push('<div class="cell out"></div>');
     gridEl.innerHTML = cells.join("");
     listEl.innerHTML = list.length ? list.join("") : '<div class="empty">No games this month.</div>';
+    setTimeout(reportHeight, 0);
   }
 
-  function openGame(g){
+  function openGame(g, fromEl){
     var away = g.home ? g.opp : C.US_NAME, home = g.home ? C.US_NAME : g.opp;
     dlg.innerHTML = '<div class="dlg-head"><div class="d">' + esc(g.longDate) + ' &middot; ' + (g.cancelled ? 'Canceled' : esc(g.time)) + '</div>'
       + '<div class="m">' + esc(away) + ' @ ' + esc(home) + '</div></div>'
@@ -156,16 +181,24 @@
       + '<div><div class="k">Team</div>' + esc(C.US_NAME + " " + g.team) + ' &middot; ' + (g.home ? "Home" : "Away") + '</div>'
       + '<div><div class="k">Rink</div>' + esc(g.rink) + (g.address ? '<br>' + esc(g.address) : '') + '</div>'
       + (g.arrive ? '<div><div class="k">Arrival</div>' + esc(g.arrive.charAt(0).toUpperCase() + g.arrive.slice(1)) + '</div>' : '')
-      + '<div class="dlg-actions"><a class="btn primary" href="' + g.map + '" target="_blank" rel="noopener">Directions</a>'
+      + '<div class="dlg-actions">'
+      + (g.video ? '<a class="btn primary" href="' + esc(g.video) + '" target="_blank" rel="noopener">&#9654;&nbsp;Watch</a>'
+                 + '<a class="btn" href="' + g.map + '" target="_blank" rel="noopener">Directions</a>'
+                 : '<a class="btn primary" href="' + g.map + '" target="_blank" rel="noopener">Directions</a>')
       + '<button class="btn" value="close">Close</button></div></div>';
     dlg.querySelector('button[value="close"]').onclick = function(){ dlg.close(); };
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    if (EMBED && fromEl){ // the page is very tall inside the club site, so open the details next to the game
+      var top = fromEl.getBoundingClientRect().top + window.scrollY - 40;
+      var maxTop = document.documentElement.scrollHeight - dlg.offsetHeight - 10;
+      dlg.style.top = Math.max(10, Math.min(top, maxTop)) + "px";
+    }
   }
   dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); });
 
   document.addEventListener("click", function(e){
     var c = e.target.closest && e.target.closest(".chip");
-    if (c) openGame(state.games[+c.getAttribute("data-i")]);
+    if (c) openGame(state.games[+c.getAttribute("data-i")], c);
   });
   function move(n){ var d = new Date(state.y, state.m + n, 1); state.y = d.getFullYear(); state.m = d.getMonth(); render(); }
   document.querySelector(".prev").onclick = function(){ move(-1); };

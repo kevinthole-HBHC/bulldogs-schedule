@@ -1,6 +1,8 @@
-# Final scores. Add one line after each game, then commit.
-# date (YYYY-MM-DD), team (Varsity or JV), Highland score, opponent score, optional note (OT or SO)
-# Example:  2026-10-24,JV,3,2
-date,team,highland,opponent,note
+# Final scores and game videos. Add one line after each game, then commit.
+# date (YYYY-MM-DD), team (Varsity or JV), Highland score, opponent score, then optional OT or SO, then optional video link
+# Examples:
+#   2026-10-24,JV,3,2,https://youtu.be/abc123
+#   2026-11-02,Varsity,4,3,OT,https://youtu.be/def456
+# To add a video to a game that already has a line, paste the link at the end of that line after a comma.
+date,team,highland,opponent,note,video
 2026-10-24,JV,3,2
-2026-11-2,Varsity,9,0

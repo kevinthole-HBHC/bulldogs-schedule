@@ -76,16 +76,26 @@
     };
   }
 
-  // scores.csv: one line per finished game ->  date,team,highland,opponent[,note]
-  // e.g.  2026-10-24,JV,3,2      or  2026-11-02,Varsity,4,3,OT
+  // scores.csv: one line per finished game ->  date,team,highland,opponent[,note][,video link]
+  // e.g.  2026-10-24,JV,3,2,https://youtu.be/abc123
+  //       2026-11-02,Varsity,4,3,OT,https://youtu.be/def456
+  // The note (OT or SO) and the video link are optional, in either order.
   function readScores(text){
     var out = {};
     text.split(/\r?\n/).forEach(function(line){
       line = line.trim();
       if (!line || line.charAt(0) === "#" || /^date\s*,/i.test(line)) return;
       var c = line.split(",").map(function(x){ return x.trim(); });
-      if (c.length < 4 || !/^\d{4}-\d{2}-\d{2}$/.test(c[0]) || isNaN(+c[2]) || isNaN(+c[3])) return;
-      out[c[0] + "|" + c[1].toLowerCase()] = { us: +c[2], them: +c[3], note: (c[4] || "").toUpperCase() };
+      if (c.length < 2 || !/^\d{4}-\d{2}-\d{2}$/.test(c[0])) return;
+      var rec = { note: "", video: "" };
+      c.slice(4).forEach(function(x){
+        if (/^https?:\/\/[^\s"'<>]+$/i.test(x)) rec.video = x;
+        else if (x) rec.note = x.toUpperCase();
+      });
+      var hasScore = c[2] !== undefined && c[3] !== undefined && c[2] !== "" && c[3] !== "" && !isNaN(+c[2]) && !isNaN(+c[3]);
+      if (hasScore){ rec.us = +c[2]; rec.them = +c[3]; }
+      if (!hasScore && !rec.video) return;
+      out[c[0] + "|" + c[1].toLowerCase()] = rec;
     });
     return out;
   }
@@ -102,8 +112,11 @@
       return readIcs(res[0]).map(toGame).filter(Boolean).map(function(g){
         var sc = scores[g.key + "|" + g.team.toLowerCase()];
         if (sc){
-          g.us = sc.us; g.them = sc.them; g.note = sc.note;
-          g.result = sc.us > sc.them ? "W" : sc.us < sc.them ? "L" : "T";
+          if (sc.us != null){
+            g.us = sc.us; g.them = sc.them; g.note = sc.note;
+            g.result = sc.us > sc.them ? "W" : sc.us < sc.them ? "L" : "T";
+          }
+          if (sc.video) g.video = sc.video;
         }
         return g;
       }).sort(function(a,b){ return a.start - b.start; });
