@@ -5,4 +5,5 @@
 #   2026-11-02,Varsity,4,3,OT,https://youtu.be/def456
 # To add a video to a game that already has a line, paste the link at the end of that line after a comma.
 date,team,highland,opponent,note,video
-2026-10-24,JV,3,2
+2026-10-24,JV,3,2,https://youtu.be/KD152c7UrXE
+2026-11-02,Varsity,9,0,https://youtu.be/lEGiYo6rJNE
