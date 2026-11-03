@@ -12,7 +12,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Fetch TeamSnap feeds and keep games
         env:
           TEAMSNAP_FEED_VARSITY: ${{ secrets.TEAMSNAP_FEED_VARSITY }}
@@ -23,4 +23,4 @@ jobs:
           git config user.name "schedule-bot"
           git config user.email "schedule-bot@users.noreply.github.com"
           git add games.ics
-          git diff --cached --quiet || (git commit -m "Update game schedule" && git push)
+          git diff --cached --quiet || (git commit -m "Update game schedule" && git pull --rebase && git push)
