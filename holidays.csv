@@ -1,0 +1,6 @@
+# Holiday tiles for the game strip (and a label on the calendar).
+# date (YYYY-MM-DD), message, picture (thanksgiving, christmas or newyear)
+date,message,picture
+2026-11-26,Happy Thanksgiving,thanksgiving
+2026-12-25,Merry Christmas,christmas
+2027-01-01,Happy New Year,newyear

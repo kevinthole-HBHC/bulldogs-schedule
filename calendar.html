@@ -33,6 +33,7 @@
   .cell.out{background:transparent; border-style:dashed; border-color:#E8EAED}
   .cell.today{border:2px solid var(--ink)}
   .num{font-weight:600; font-size:14px; color:var(--muted)}
+  .hol{font-size:12px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:.04em}
   .chip{display:block; width:100%; text-align:left; border:1px solid #CDD1D6; border-left:4px solid #9AA1AA; background:var(--paper); border-radius:5px; padding:5px 7px; cursor:pointer; font:inherit; color:inherit}
   .chip.home{background:var(--red-soft); border-color:#EBCBC2; border-left-color:var(--red)}
   .chip:hover{box-shadow:0 2px 6px rgba(0,0,0,.12)}
@@ -45,6 +46,15 @@
   .chip .t{gap:6px}
   .chip .t > span:first-child{white-space:nowrap}
   .chip .vid{display:inline-block; width:0; height:0; border-left:7px solid currentColor; border-top:4px solid transparent; border-bottom:4px solid transparent; margin-left:6px; vertical-align:0; color:var(--ink)}
+  .chip .pr{margin-top:4px; font-size:12px; font-weight:700; line-height:1.25; color:#fff; background:var(--red);
+    border-radius:3px; padding:2px 6px}
+  .grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+  .cell,.chip{min-width:0}
+  .promo-box{display:block; background:var(--red); color:#fff; border-radius:6px; padding:10px 12px; font-weight:700; font-size:16px; text-decoration:none}
+  a.promo-box:hover{background:#B4300F}
+  .promo-box .sp{margin-top:8px; font-weight:500; font-size:13px; line-height:1.5}
+  .promo-box .sp a{color:#fff}
+  a.promo-box span{display:block; font-weight:500; font-size:13px; margin-top:3px; opacity:.9; text-decoration:underline}
   .chip .t .res{color:var(--ink); font-weight:700}
   .chip .t .res.W{color:#157A3B} .chip .t .res.L{color:var(--red)}
   .chip.cancel .o{text-decoration:line-through}
@@ -141,7 +151,9 @@
     var when = g.cancelled ? "Canceled" : scored ? '<span class="res ' + g.result + '">' + g.result + ' ' + g.us + '-' + g.them + (g.note ? ' ' + esc(g.note) : '') + '</span>' : g.time;
     return '<button class="' + cls + '" data-i="' + i + '">'
       + '<div class="t"><span>' + when + (g.video ? '<span class="vid" title="Game video"></span>' : '') + '</span><b>' + esc(g.team) + '</b></div>'
-      + '<div class="o"><small>' + (g.home ? "vs" : "@") + '</small>' + esc(g.opp) + '</div></button>';
+      + '<div class="o"><small>' + (g.home ? "vs" : "@") + '</small>' + esc(g.opp) + '</div>'
+      + (g.promo ? '<div class="pr" title="' + esc(g.promo) + '">' + esc(g.promo) + '</div>' : '')
+      + '</button>';
   }
 
   function render(){
@@ -157,7 +169,8 @@
     for (var i = 0; i < first; i++) cells.push('<div class="cell out"></div>');
     for (var d = 1; d <= days; d++){
       var key = state.y + "-" + pad(state.m + 1) + "-" + pad(d), gs = byDay[key] || [];
-      cells.push('<div class="cell' + (key === tk ? ' today' : '') + '"><div class="num">' + d + '</div>'
+      var hol = (HB.holidays || []).filter(function(h){ return h.key === key; }).map(function(h){ return '<div class="hol">' + esc(h.text) + '</div>'; }).join("");
+      cells.push('<div class="cell' + (key === tk ? ' today' : '') + '"><div class="num">' + d + '</div>' + hol
         + gs.map(function(g){ return chip(g, state.games.indexOf(g)); }).join("") + '</div>');
       if (gs.length){
         var wd = DOW[new Date(state.y, state.m, d).getDay()];
@@ -176,6 +189,15 @@
     dlg.innerHTML = '<div class="dlg-head"><div class="d">' + esc(g.longDate) + ' &middot; ' + (g.cancelled ? 'Canceled' : esc(g.time)) + '</div>'
       + '<div class="m">' + esc(away) + ' @ ' + esc(home) + '</div></div>'
       + '<div class="dlg-body">'
+      + (g.promo
+          ? (g.promoLink
+              ? '<a class="promo-box" href="' + esc(g.promoLink) + '" target="_blank" rel="noopener">' + esc(g.promo) + '<span>Visit our sponsor &#8599;</span></a>'
+              : '<div class="promo-box">' + esc(g.promo)
+            + (g.sponsors && g.sponsors.length ? '<div class="sp">Thanks to our sponsors: ' + g.sponsors.map(function(sp){
+                return sp.link ? '<a href="' + esc(sp.link) + '" target="_blank" rel="noopener">' + esc(sp.name) + '</a>' : esc(sp.name);
+              }).join(" &middot; ") + '</div>' : '')
+            + '</div>')
+          : '')
       + (g.result != null ? '<div><div class="k">Final' + (g.note ? ' (' + esc(g.note) + ')' : '') + '</div><b style="font-size:20px">'
           + (g.result === "W" ? "Win" : g.result === "L" ? "Loss" : "Tie") + ' ' + g.us + '-' + g.them + '</b></div>' : '')
       + '<div><div class="k">Team</div>' + esc(C.US_NAME + " " + g.team) + ' &middot; ' + (g.home ? "Home" : "Away") + '</div>'

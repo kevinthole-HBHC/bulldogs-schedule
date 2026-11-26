@@ -57,7 +57,9 @@
     var start = parseIcsDate(ev.DTSTART || ""); if (!start) return null;
     var end = ev.DTEND ? parseIcsDate(ev.DTEND) : new Date(start.getTime() + parseDuration(ev.DURATION));
     var m = text.match(/\b(vs\.?|at|@)\s+(.+?)\s*(\(|$)/i);
-    var opp = m ? m[2].trim() : text.replace(/^.*?:\s*/,"");
+    // events without an opponent (e.g. "Varsity 26-27 Alumni game") show their own name, minus the team label
+    var opp = m ? m[2].trim() : text.replace(/^[^:]*:\s*/,"").replace(/\b(varsity|jv)\s+\d{2}-\d{2}\s*/i,"").trim()
+      .replace(/\b\w/g, function(ch){ return ch.toUpperCase(); });
     var arrive = (text.match(/\(([^)]*arrive[^)]*)\)/i) || [])[1] || "";
     var loc = unescapeIcs(ev.LOCATION || "");
     var lines = loc.split("\n");
@@ -86,7 +88,8 @@
       line = line.trim();
       if (!line || line.charAt(0) === "#" || /^date\s*,/i.test(line)) return;
       var c = line.split(",").map(function(x){ return x.trim(); });
-      if (c.length < 2 || !/^\d{4}-\d{2}-\d{2}$/.test(c[0])) return;
+      c[0] = normDate(c[0]);
+      if (c.length < 2 || !c[0]) return;
       var rec = { note: "", video: "" };
       c.slice(4).forEach(function(x){
         if (/^https?:\/\/[^\s"'<>]+$/i.test(x)) rec.video = x;
@@ -100,6 +103,59 @@
     return out;
   }
 
+  // accepts 2026-12-5 or 2026-12-05; returns "" if it isn't a date
+  function normDate(v){
+    var m = (v || "").trim().match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    return m ? m[1] + "-" + ("0" + m[2]).slice(-2) + "-" + ("0" + m[3]).slice(-2) : "";
+  }
+
+  // promos.csv: one line per game with a special note ->  date,team,message[,link]
+  // e.g.  2026-12-05,Varsity,Free Highland Student Admission courtesy of Apex Network Physical Therapy,https://apexnetworkpt.com/
+  // Leave the team blank to apply to every HBHC game that day. The link (a sponsor's website) is optional.
+  function readPromos(text){
+    var out = [];
+    text.split(/\r?\n/).forEach(function(line){
+      line = line.trim();
+      if (!line || line.charAt(0) === "#" || /^date\s*,/i.test(line)) return;
+      var c = line.split(","), d = normDate(c[0]);
+      var rest = c.slice(2), link = "";
+      var last = (rest[rest.length - 1] || "").trim();
+      if (rest.length > 1 && /^https?:\/\/[^\s"'<>]+$/i.test(last)){ link = last; rest.pop(); }
+      var msg = rest.join(",").trim();
+      if (!d || !msg) return;
+      out.push({ key: d, team: (c[1] || "").trim().toLowerCase(), text: msg, link: link });
+    });
+    return out;
+  }
+
+  // sponsors.csv: one line per sponsor ->  name,link
+  function readSponsors(text){
+    var out = [];
+    text.split(/\r?\n/).forEach(function(line){
+      line = line.trim();
+      if (!line || line.charAt(0) === "#" || /^name\s*,/i.test(line)) return;
+      var c = line.split(","), last = (c[c.length - 1] || "").trim(), link = "";
+      if (c.length > 1 && /^https?:\/\/[^\s"'<>]+$/i.test(last)){ link = last; c.pop(); }
+      var name = c.join(",").trim();
+      if (name) out.push({ name: name, link: link });
+    });
+    return out;
+  }
+
+  // holidays.csv: date,message,picture  (picture: thanksgiving, christmas, newyear)
+  function readHolidays(text){
+    var out = [];
+    text.split(/\r?\n/).forEach(function(line){
+      line = line.trim();
+      if (!line || line.charAt(0) === "#" || /^date\s*,/i.test(line)) return;
+      var c = line.split(","), d = normDate(c[0]);
+      var art = (c.length > 2 ? c.pop() : "").trim().toLowerCase();
+      var msg = c.slice(1).join(",").trim();
+      if (d && msg) out.push({ key: d, text: msg, art: art });
+    });
+    return out;
+  }
+
   function loadGames(){
     var ctl = window.AbortController ? new AbortController() : null;
     var t = setTimeout(function(){ if (ctl) ctl.abort(); }, 15000);
@@ -107,8 +163,16 @@
       .then(function(r){ clearTimeout(t); if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); });
     var scoresReq = fetch("scores.csv?t=" + Date.now(), {cache: "no-store"})
       .then(function(r){ return r.ok ? r.text() : ""; }).catch(function(){ return ""; });
-    return Promise.all([gamesReq, scoresReq]).then(function(res){
-      var scores = readScores(res[1]);
+    var promosReq = fetch("promos.csv?t=" + Date.now(), {cache: "no-store"})
+      .then(function(r){ return r.ok ? r.text() : ""; }).catch(function(){ return ""; });
+    var sponsorsReq = fetch("sponsors.csv?t=" + Date.now(), {cache: "no-store"})
+      .then(function(r){ return r.ok ? r.text() : ""; }).catch(function(){ return ""; });
+    var holidaysReq = fetch("holidays.csv?t=" + Date.now(), {cache: "no-store"})
+      .then(function(r){ return r.ok ? r.text() : ""; }).catch(function(){ return ""; });
+    return Promise.all([gamesReq, scoresReq, promosReq, sponsorsReq, holidaysReq]).then(function(res){
+      HB.holidays = readHolidays(res[4]);
+      var scores = readScores(res[1]), promos = readPromos(res[2]), sponsors = readSponsors(res[3]);
+      HB.sponsors = sponsors;
       return readIcs(res[0]).map(toGame).filter(Boolean).map(function(g){
         var sc = scores[g.key + "|" + g.team.toLowerCase()];
         if (sc){
@@ -118,10 +182,14 @@
           }
           if (sc.video) g.video = sc.video;
         }
+        promos.forEach(function(p){
+          if (p.key === g.key && (!p.team || p.team === g.team.toLowerCase())){ g.promo = p.text; g.promoLink = p.link;
+            g.sponsors = p.link ? [] : sponsors; }   // no link given: thank all sponsors, in rotation
+        });
         return g;
       }).sort(function(a,b){ return a.start - b.start; });
     });
   }
 
-  window.HB = { CONFIG: CONFIG, esc: esc, loadGames: loadGames, dayKey: dayKey, fmt: fmt };
+  var HB = window.HB = { CONFIG: CONFIG, esc: esc, loadGames: loadGames, dayKey: dayKey, fmt: fmt, sponsors: [], holidays: [] };
 })();

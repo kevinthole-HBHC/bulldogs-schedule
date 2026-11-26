@@ -9,7 +9,7 @@
   html,body{margin:0;background:#16181C;overflow:hidden}
   #hb-bar{
     --bg:#16181C; --card:#16181C; --hover:#1F2329; --line:#2C3036; --ink:#F2F3F5; --muted:#9AA1AA; --red:#9B270C;
-    height:112px; box-sizing:border-box; display:flex; background:var(--bg); color:var(--ink);
+    height:132px; box-sizing:border-box; display:flex; background:var(--bg); color:var(--ink);
     font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
   }
   #hb-bar *{box-sizing:border-box}
@@ -18,7 +18,7 @@
   .hb-arrow:focus-visible,.hb-cal:focus-visible,.hb-track:focus-visible{outline:2px solid var(--red); outline-offset:-2px}
   .hb-track{flex:1; display:flex; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; border-left:1px solid var(--line)}
   .hb-track::-webkit-scrollbar{display:none}
-  .hb-item{display:flex; flex:0 0 auto; border-right:1px solid var(--line)}
+  .hb-item{display:flex; flex:0 0 auto; border-right:1px solid var(--line); position:relative}
   .hb-date{width:50px; display:flex; flex-direction:column; align-items:center; justify-content:center;
     border-right:1px solid var(--line); line-height:1; text-transform:uppercase; background:#121418}
   .hb-date .wd{font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.04em}
@@ -45,6 +45,16 @@
   .hb-final .hb-pill{background:transparent; color:var(--ink); padding:0}
   .hb-rink{margin-top:6px; font-size:13px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center}
   .hb-past{opacity:.5}
+  /* sponsor note: a scrolling ticker along the bottom edge of the card, under the rink */
+  .hb-promo{position:absolute; left:50px; right:0; bottom:0; height:20px; display:block; text-decoration:none; background:var(--red); color:#fff; overflow:hidden; white-space:nowrap;
+    font-size:13px; font-weight:700; letter-spacing:.02em; line-height:20px}
+  .hb-promo .tx{display:inline-block; padding-left:100%; animation:hb-marquee var(--dur,10s) linear infinite}
+  .hb-promo:hover .tx{animation-play-state:paused}
+  a.hb-promo:hover{background:#B4300F}
+  a.hb-promo:focus-visible{outline:2px solid #fff; outline-offset:-2px}
+  .hb-promo .ext{display:inline-block; width:9px; height:9px; margin-left:5px; vertical-align:0}
+  @keyframes hb-marquee{from{transform:translateX(0)} to{transform:translateX(-100%)}}
+  @media (prefers-reduced-motion:reduce){ .hb-promo .tx{animation:none; padding-left:8px} }
   .hb-watch{color:var(--ink); font-weight:600}
   .hb-watch svg{width:11px; height:11px; vertical-align:-1px; margin-right:4px; fill:currentColor}
   .hb-game:hover .hb-watch{color:#fff; text-decoration:underline}
@@ -53,8 +63,18 @@
     color:var(--ink); text-decoration:none; border-left:1px solid var(--line); font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase}
   .hb-cal:hover{background:var(--hover); color:#fff}
   .hb-cal svg{width:26px; height:26px}
+  /* holiday tiles */
+  .hb-hol .hb-date{background:#121418}
+  .hb-holcard{width:212px; display:flex; align-items:center; gap:10px; padding:0 12px; box-sizing:border-box;
+    background:radial-gradient(120% 90% at 0% 100%, rgba(155,39,12,.35), transparent 60%)}
+  .hb-holcard svg{flex:0 0 54px; width:54px; height:54px}
+  .hb-holcard > div{min-width:0}
+  .hb-holcard .h1{font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+  .hb-holcard .h2{font-size:21px; font-weight:700; line-height:1.05; color:#fff}
+  .hb-holcard .h3{font-size:13px; font-weight:600; color:var(--muted); margin-top:4px}
+  @media (max-width:600px){ .hb-holcard{width:186px} .hb-holcard svg{flex-basis:52px; width:52px; height:52px} }
   .hb-msg{padding:0 18px; align-self:center; font-size:16px; color:var(--muted)}
-  @media (max-width:600px){ .hb-game{width:186px} .hb-cal{flex-basis:52px} .hb-cal span{display:none} .hb-arrow{flex-basis:26px} }
+  @media (max-width:600px){ .hb-promo{left:50px} .hb-game{width:186px} .hb-cal{flex-basis:52px} .hb-cal span{display:none} .hb-arrow{flex-basis:26px} }
   @media (prefers-reduced-motion:reduce){ .hb-track{scroll-behavior:auto} }
 </style>
 </head>
@@ -93,13 +113,81 @@
     var name = isUs ? C.US_NAME : g.opp;
     return '<div class="' + cls + '">' + badge(isUs ? C.US_ABBR : g.oppAbbr, isUs) + '<span class="hb-name">' + esc(name) + '</span>' + right + '</div>';
   }
-  function item(g, isNext, isPast){
+  // sponsor ticker. With a link in promos.csv it links to that sponsor; otherwise it thanks the
+  // sponsors from sponsors.csv one at a time, switching to the next sponsor on each pass.
+  var EXT = '<svg class="ext" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 1H1v8h8V6M6 1h3v3M9 1L4.5 5.5"/></svg>';
+  function dur(text){ return Math.max(8, Math.round(text.length * 0.3)) + "s"; }
+  function sponsorText(g, sp){ return g.promo + "  \u00b7  Thanks to " + sp.name; }
+  function promo(g, idx){
+    if (!g.promoLink && g.sponsors && g.sponsors.length){
+      var sp = g.sponsors[idx % g.sponsors.length], text = sponsorText(g, sp);
+      return '<a class="hb-promo hb-rot" data-i="' + (idx % g.sponsors.length) + '"' + (sp.link ? ' href="' + esc(sp.link) + '" target="_blank" rel="noopener"' : '')
+        + ' title="' + esc(text) + '"><span class="tx" style="--dur:' + dur(text) + '">' + esc(text) + (sp.link ? EXT : '') + '</span></a>';
+    }
+    var tx = '<span class="tx" style="--dur:' + dur(g.promo) + '">' + esc(g.promo) + (g.promoLink ? EXT : '') + '</span>';
+    return g.promoLink
+      ? '<a class="hb-promo" href="' + esc(g.promoLink) + '" target="_blank" rel="noopener" title="' + esc(g.promo) + '">' + tx + '</a>'
+      : '<div class="hb-promo" title="' + esc(g.promo) + '">' + tx + '</div>';
+  }
+  function startRotation(games){
+    Array.prototype.forEach.call(track.querySelectorAll(".hb-rot"), function(el){
+      var g = games[+el.closest(".hb-item").getAttribute("data-g")], tx = el.firstChild;
+      tx.addEventListener("animationiteration", function(){
+        var i = (+el.getAttribute("data-i") + 1) % g.sponsors.length, sp = g.sponsors[i], text = sponsorText(g, sp);
+        el.setAttribute("data-i", i);
+        if (sp.link){ el.href = sp.link; el.target = "_blank"; el.rel = "noopener"; } else el.removeAttribute("href");
+        el.title = text;
+        tx.innerHTML = esc(text) + (sp.link ? EXT : '');
+        tx.style.setProperty("--dur", dur(text));
+        tx.style.animation = "none"; void tx.offsetWidth; tx.style.animation = "";   // restart cleanly for the new text
+      });
+    });
+  }
+
+  // Holiday pictures: original drawings in the strip's colors (free to use, no outside images)
+  var ART = {
+    thanksgiving: '<svg viewBox="0 0 64 64" aria-hidden="true">'
+      + '<g transform="translate(32 34)">'
+      + [-70,-42,-14,14,42,70].map(function(a,i){ return '<ellipse rx="7" ry="20" transform="rotate(' + a + ') translate(0 -14)" fill="' + ["#9B270C","#D9822B","#E8B04A","#E8B04A","#D9822B","#9B270C"][i] + '"/>'; }).join("")
+      + '<ellipse cx="0" cy="6" rx="12" ry="13" fill="#7A4A2A"/><circle cx="0" cy="-8" r="7" fill="#8C5A35"/>'
+      + '<circle cx="-2.5" cy="-9.5" r="1.4" fill="#16181C"/><circle cx="2.5" cy="-9.5" r="1.4" fill="#16181C"/>'
+      + '<path d="M-2 -7 L2 -7 L0 -3.5 Z" fill="#E8B04A"/><path d="M1.5 -5 q3 3 0 6" stroke="#C8441F" stroke-width="2" fill="none"/>'
+      + '<path d="M-5 19 v4 M5 19 v4" stroke="#E8B04A" stroke-width="2"/></g></svg>',
+    christmas: '<svg viewBox="0 0 64 64" aria-hidden="true">'
+      + '<path d="M32 10 L46 30 H40 L52 46 H12 L24 30 H18 Z" fill="#2E7D4F"/>'
+      + '<rect x="28" y="46" width="8" height="8" fill="#7A4A2A"/>'
+      + '<path d="M32 3 l2.4 5 5.4.6-4 3.7 1.1 5.3-4.9-2.7-4.9 2.7 1.1-5.3-4-3.7 5.4-.6z" fill="#E8B04A"/>'
+      + '<circle cx="27" cy="26" r="2.3" fill="#C8441F"/><circle cx="37" cy="33" r="2.3" fill="#E8B04A"/><circle cx="24" cy="40" r="2.3" fill="#F2F3F5"/>'
+      + '<circle cx="40" cy="42" r="2.3" fill="#C8441F"/><circle cx="31" cy="38" r="2.3" fill="#C8441F"/>'
+      + '<path d="M22 31 Q32 36 42 29" stroke="#F2F3F5" stroke-width="1.3" fill="none" opacity=".8"/></svg>',
+    newyear: '<svg viewBox="0 0 64 64" aria-hidden="true">'
+      + [[20,20,"#E8B04A",11],[44,16,"#C8441F",9],[42,38,"#F2F3F5",8]].map(function(f){
+          var r = '', x = f[0], y = f[1];
+          for (var k = 0; k < 12; k++){ var a = k * Math.PI / 6;
+            r += '<line x1="' + (x + Math.cos(a) * f[3] * .35).toFixed(1) + '" y1="' + (y + Math.sin(a) * f[3] * .35).toFixed(1) + '" x2="' + (x + Math.cos(a) * f[3]).toFixed(1) + '" y2="' + (y + Math.sin(a) * f[3]).toFixed(1) + '" stroke="' + f[2] + '" stroke-width="2" stroke-linecap="round"/>'; }
+          return r + '<circle cx="' + x + '" cy="' + y + '" r="1.8" fill="' + f[2] + '"/>'; }).join("")
+      + '<path d="M14 56 q2 -10 6 -26" stroke="#9AA1AA" stroke-width="1" fill="none" stroke-dasharray="2 2"/>'
+      + '<text x="32" y="60" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="15" fill="#F2F3F5">{YEAR}</text></svg>'
+  };
+  function holidayTile(h){
+    var p = h.key.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    var words = h.text.match(/^(happy|merry)\s+(.*)$/i);
+    var art = (ART[h.art] || "").replace("{YEAR}", p[0]);
+    return '<div class="hb-item hb-hol">'
+      + '<div class="hb-date"><span class="wd">' + ["SUN","MON","TUE","WED","THU","FRI","SAT"][d.getDay()] + '</span><span class="mo">'
+      + ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"][d.getMonth()] + '</span><span class="dy">' + d.getDate() + '</span></div>'
+      + '<div class="hb-holcard">' + art + '<div>'
+      +   (words ? '<div class="h1">' + esc(words[1]) + '</div><div class="h2">' + esc(words[2]) + '</div>' : '<div class="h2">' + esc(h.text) + '</div>')
+      +   '<div class="h3">from HBHC</div></div></div></div>';
+  }
+
+  function item(g, isNext, isPast, gi){
     var scored = g.result != null;
     var status = g.cancelled ? "Canceled" : scored ? "Final" + (g.note ? " / " + g.note : "") : isPast ? "Played" : g.time;
     var cls = "hb-item" + (isNext ? " hb-next" : "") + (isPast && !scored && !g.video ? " hb-past" : "") + (scored ? " hb-final" : "") + (g.cancelled ? " hb-cancel" : "");
     // away team on top, home team underneath
     var rows = g.home ? row(false, g) + row(true, g) : row(true, g) + row(false, g);
-    return '<div class="' + cls + '">'
+    return '<div class="' + cls + '" data-g="' + gi + '">'
       + '<div class="hb-date"><span class="wd">' + g.weekday + '</span><span class="mo">' + g.month + '</span><span class="dy">' + g.day + '</span></div>'
       + '<a class="hb-game" href="' + esc(g.video || g.map) + '" target="_blank" rel="noopener" title="' + (g.video ? 'Watch the game video' : esc(g.rink + (g.address ? ", " + g.address : ""))) + '">'
       +   '<div class="hb-top"><span class="hb-pill">' + (isNext && !g.cancelled ? 'Next · ' : '') + status + '</span><span class="hb-team">' + esc(g.team) + '</span></div>'
@@ -107,7 +195,9 @@
       +   (g.video
             ? '<div class="hb-rink hb-watch"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>Watch the game</div>'
             : '<div class="hb-rink">' + esc(g.rink) + '</div>')
-      + '</a></div>';
+      + '</a>'
+      +   (g.promo ? promo(g, gi) : '')
+      + '</div>';
   }
 
   HB.loadGames().then(function(games){
@@ -118,8 +208,17 @@
       if (g.cancelled || g.end < now || seen[g.team]) return false;
       seen[g.team] = true; if (firstNext < 0) firstNext = i; return true;
     });
-    track.innerHTML = games.map(function(g,i){ return item(g, isNext[i], g.end < now); }).join("");
-    var target = track.children[firstNext >= 0 ? Math.max(firstNext - 1, 0) : games.length - 1];
+    // games in date order, with holiday tiles slotted in on their dates (ahead of any game that day)
+    var hols = (HB.holidays || []).slice().sort(function(a,b){ return a.key < b.key ? -1 : 1; }), hi = 0, html = "";
+    games.forEach(function(g,i){
+      while (hi < hols.length && hols[hi].key <= g.key) html += holidayTile(hols[hi++]);
+      html += item(g, isNext[i], g.end < now, i);
+    });
+    while (hi < hols.length && hols[hi].key <= games[games.length - 1].key) html += holidayTile(hols[hi++]);   // only within the season
+    track.innerHTML = html;
+    startRotation(games);
+    var gi = firstNext >= 0 ? Math.max(firstNext - 1, 0) : games.length - 1;
+    var target = track.querySelector('[data-g="' + gi + '"]');
     if (target){ track.style.scrollBehavior = "auto"; track.scrollLeft = target.offsetLeft - track.offsetLeft; track.style.scrollBehavior = ""; }
   }).catch(function(){
     track.innerHTML = '<div class="hb-msg">Schedule is unavailable right now. Please check back soon.</div>';

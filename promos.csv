@@ -1,0 +1,21 @@
+# Special notes for upcoming games, like sponsored student admission.
+# date (YYYY-MM-DD), team (Varsity or JV, or leave blank for every HBHC game that day), message, then optional link
+# Examples:
+#   2026-12-05,Varsity,Free Highland Student Admission
+#   2026-12-12,,Free Highland Student Admission
+# Without a link, the note thanks every sponsor in sponsors.csv, taking turns on the strip.
+# Add a link at the end only to credit one specific sponsor for that game.
+# The note stays on the game after it's played, next to the score and video, as a thank-you to the sponsors.
+date,team,message,link
+2026-11-21,JV,Free Highland Student Admission
+2026-11-23,Varsity,Free Highland Student Admission
+2026-12-03,Varsity,Free Highland Student Admission
+2026-12-10,Varsity,Free Highland Student Admission
+2026-12-17,Varsity,Free Highland Student Admission
+2026-12-19,JV,Free Highland Student Admission
+2026-12-21,Varsity,Free Highland Student Admission
+2027-01-07,Varsity,Free Highland Student Admission
+2027-01-09,JV,Free Highland Student Admission
+2027-01-14,Varsity,Free Highland Student Admission
+2027-01-21,Varsity,Free Highland Student Admission
+2027-01-28,Varsity,Free Highland Student Admission
