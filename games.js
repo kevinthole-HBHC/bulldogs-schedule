@@ -156,6 +156,19 @@
     return out;
   }
 
+  // homeaway.csv: fixes for games the rink guess gets wrong ->  date,team,home|away
+  function readHomeAway(text){
+    var out = {};
+    text.split(/\r?\n/).forEach(function(line){
+      line = line.trim();
+      if (!line || line.charAt(0) === "#" || /^date\s*,/i.test(line)) return;
+      var c = line.split(",").map(function(x){ return x.trim(); }), d = normDate(c[0]);
+      var v = (c[2] || "").toLowerCase();
+      if (d && (v === "home" || v === "away")) out[d + "|" + (c[1] || "").toLowerCase()] = v === "home";
+    });
+    return out;
+  }
+
   function loadGames(){
     var ctl = window.AbortController ? new AbortController() : null;
     var t = setTimeout(function(){ if (ctl) ctl.abort(); }, 15000);
@@ -169,11 +182,17 @@
       .then(function(r){ return r.ok ? r.text() : ""; }).catch(function(){ return ""; });
     var holidaysReq = fetch("holidays.csv?t=" + Date.now(), {cache: "no-store"})
       .then(function(r){ return r.ok ? r.text() : ""; }).catch(function(){ return ""; });
-    return Promise.all([gamesReq, scoresReq, promosReq, sponsorsReq, holidaysReq]).then(function(res){
+    var homeAwayReq = fetch("homeaway.csv?t=" + Date.now(), {cache: "no-store"})
+      .then(function(r){ return r.ok ? r.text() : ""; }).catch(function(){ return ""; });
+    return Promise.all([gamesReq, scoresReq, promosReq, sponsorsReq, holidaysReq, homeAwayReq]).then(function(res){
+      var homeAway = readHomeAway(res[5]);
       HB.holidays = readHolidays(res[4]);
       var scores = readScores(res[1]), promos = readPromos(res[2]), sponsors = readSponsors(res[3]);
       HB.sponsors = sponsors;
       return readIcs(res[0]).map(toGame).filter(Boolean).map(function(g){
+        var ha = homeAway[g.key + "|" + g.team.toLowerCase()];
+        if (ha === undefined) ha = homeAway[g.key + "|"];      // team left blank: every game that day
+        if (ha !== undefined) g.home = ha;
         var sc = scores[g.key + "|" + g.team.toLowerCase()];
         if (sc){
           if (sc.us != null){
